@@ -10,8 +10,6 @@ function getCountriesBySortedConfirmedCases() {
             return prevCountry.confirmedCases < curCountry.confirmedCases ? 1 : -1;
         });
 
-    console.log(sortedCountries);
-
     return sortedCountries;
 }
 
