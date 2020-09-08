@@ -1,4 +1,5 @@
 const request = require('supertest');
+const dateRegex = require('./../../src/utils/date-template-regex');
 const app = require('../../src/app');
 
 test('should respond with status 200', async () => {
@@ -8,7 +9,6 @@ test('should respond with status 200', async () => {
 
 test('response should be an array', async () => {
   const response = await request(app).get('/v1/countries');
-  console.log(response.body);
   expect(Array.isArray(response.body)).toBeTruthy();
 });
 
@@ -25,6 +25,5 @@ test('response should be sorted by confirmed cases', async () => {
 
 test('last updated date should be in dd/mm/yyyy format', async () => {
   const response = await request(app).get('/v1/countries');
-  const regex = /([0-9]){2}\/([0-9]){2}\/([0-9]){4}/;
-  expect(response.body[1].updatedAt.match(regex)).not.toBeNull();
+  expect(response.body[1].updatedAt.match(dateRegex)).not.toBeNull();
 });
